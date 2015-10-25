@@ -1,2 +1,5 @@
 require './config/application'
-run MyApp
+
+
+#map('/about') { run About}
+map ('/') { run Ideas }
