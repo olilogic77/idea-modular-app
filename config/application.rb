@@ -2,11 +2,11 @@ require 'bundler'
 
 # Setup load paths
 Bundler.require
-
 $: << File.expand_path('../', __FILE__)
-
 Dir['./app/**/*.rb'].sort.each { |file| require file }
 
-# sinatra configuration
-set :root, Dir['./app']
+module IdeaModularApp
+  class Application < Sinatra::Application
 
+  end
+end

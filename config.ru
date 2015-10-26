@@ -1,5 +1,5 @@
 require './config/application'
 
-
-#map('/about') { run About}
-map ('/') { run Ideas }
+# map the controllers to routes
+map('/about') { run AboutController }
+map('/') { run IdeasController }
