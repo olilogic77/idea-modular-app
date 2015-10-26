@@ -1,0 +1,10 @@
+# system files
+.DS_Store
+
+# IDE files
+#.idea/*
+
+# temporary application files
+/log/*
+/tmp
+db/*.sqlite3
