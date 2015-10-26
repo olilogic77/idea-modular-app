@@ -1,6 +1,4 @@
-#require 'sinatra/base'
-
-class Ideas < ApplicationController
+class IdeasController < ApplicationController
 
   %w(/ /ideas).each do |path|
     get path do
