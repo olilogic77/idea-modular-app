@@ -37,11 +37,40 @@ class IdeasController < ApplicationController
       erb :'ideas/new'
     end
   end
+
   # Get the individual page of the post with this ID.
   get '/ideas/:id' do
     @idea     = Idea.find(params[:id])
     erb :'ideas/show'
   end
+  
+  get '/ideas/:id/edit' do
+    @idea = Idea.find(params[:id])
+    erb :'ideas/edit'
+  end
+
+  put '/ideas/:id' do
+    if params[:idea].try(:[], :picture)
+      file      = params[:idea][:picture][:tempfile]
+      @filename = params[:idea][:picture][:filename]
+    end
+
+    @idea = Idea.find(params[:id])
+
+    if @idea.update_attributes(params[:idea])
+      if @filename
+        @idea.picture = @filename
+        @idea.save
+        File.open("./files/#{@filename}", 'wb') do |f|
+          f.write(file.read)
+        end
+      end
+      redirect "/ideas/#{@idea.id}"
+    else
+      erb :'ideas/edit'
+    end
+  end
+
 
 end
 
