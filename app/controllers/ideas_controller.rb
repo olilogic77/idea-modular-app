@@ -37,6 +37,11 @@ class IdeasController < ApplicationController
       erb :'ideas/new'
     end
   end
+  # Get the individual page of the post with this ID.
+  get '/ideas/:id' do
+    @idea     = Idea.find(params[:id])
+    erb :'ideas/show'
+  end
 
 end
 
