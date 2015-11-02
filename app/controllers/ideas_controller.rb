@@ -43,7 +43,7 @@ class IdeasController < ApplicationController
     @idea     = Idea.find(params[:id])
     erb :'ideas/show'
   end
-  
+
   get '/ideas/:id/edit' do
     @idea = Idea.find(params[:id])
     erb :'ideas/edit'

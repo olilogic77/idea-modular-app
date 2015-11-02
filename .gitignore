@@ -2,7 +2,7 @@
 .DS_Store
 
 # IDE files
-#.idea/*
+.idea/*
 
 # temporary application files
 /log/*
