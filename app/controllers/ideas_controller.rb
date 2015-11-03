@@ -15,6 +15,29 @@ class IdeasController < ApplicationController
     end
   end
 
+  post '/ideas/:id' do
+    if params[:idea].try(:[], :picture)
+      file      = params[:idea][:picture][:tempfile]
+      @filename = params[:idea][:picture][:filename]
+    end
+
+    @idea = Idea.find(params[:id])
+
+    if @idea.update_attributes(params[:idea])
+      if @filename
+        @idea.picture = @filename
+        @idea.save
+        File.open("./files/#{@filename}", 'wb') do |f|
+          f.write(file.read)
+        end
+      end
+      @idea.save
+      redirect "/ideas/#{@idea.id}"
+    else
+      erb :'ideas/edit'
+    end
+  end
+
   post '/ideas' do
     if params[:idea] && params[:idea][:picture] && params[:idea][:picture][:filename] && params[:idea][:picture][:tempfile]
       @idea         = Idea.new(params[:idea])
@@ -55,6 +78,8 @@ class IdeasController < ApplicationController
       @filename = params[:idea][:picture][:filename]
     end
 
+
+
     @idea = Idea.find(params[:id])
 
     if @idea.update_attributes(params[:idea])
@@ -65,6 +90,7 @@ class IdeasController < ApplicationController
           f.write(file.read)
         end
       end
+      @idea.save
       redirect "/ideas/#{@idea.id}"
     else
       erb :'ideas/edit'
